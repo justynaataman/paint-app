@@ -12,7 +12,7 @@ body{
     font-size: 40px;
 
 }
-
+/*
 a{
     outline: 0;
     position: relative;
@@ -21,7 +21,7 @@ a{
 
 
 }
-
+*/
 .inner:hover{
     background-color: lightslategray;
     cursor: crosshair;
@@ -69,26 +69,16 @@ a{
     left:0;
     bottom: 0;
 }
-/*
-#whole{
-    height: 100vh;
-    width: 60px;
-    left:60px;
-    top:0;
-    background-color: #0D0D0D;
 
-
-}
-*/
 
 .r{
-    width: 100vw;
+    height: 100vh;
     position:absolute;
     background-color: #0D0D0D;
     font-size:40px;
     opacity: 0.5;
-    bottom: 0;
-    left:0;
+    top: 0;
+    left: 60px;
     /*
     width: 60px;
     height: 60px;
@@ -113,3 +103,14 @@ a{
     background-color: whitesmoke;
 
 }
+/*
+#whole{
+    height: 100vh;
+    width: 60px;
+    left:60px;
+    top:0;
+    background-color: #0D0D0D;
+
+
+}
+*/
