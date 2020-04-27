@@ -12,16 +12,14 @@ body{
     font-size: 40px;
 
 }
-/*
+
 a{
     outline: 0;
-    position: relative;
-    left:10px;
-    top: 10px;
+  
 
 
 }
-*/
+
 .inner:hover{
     background-color: lightslategray;
     cursor: crosshair;
@@ -72,7 +70,7 @@ a{
 
 
 .r{
-    height: 100vh;
+    height: 70px;
     position:absolute;
     background-color: #0D0D0D;
     font-size:40px;
@@ -103,7 +101,7 @@ a{
     background-color: whitesmoke;
 
 }
-/*
+
 #whole{
     height: 100vh;
     width: 60px;
@@ -113,4 +111,3 @@ a{
 
 
 }
-*/
