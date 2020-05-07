@@ -10,14 +10,10 @@ body{
     transform: translate(-50%);
     color: #9FC3E6;
     font-size: 40px;
-
 }
 
 a{
     outline: 0;
-  
-
-
 }
 
 .inner:hover{
@@ -27,7 +23,6 @@ a{
 .inner {
     padding: 0;
     top: 0;
-
     line-height: inherit;
     font-size:40px;
     color: #9FC3E6;
@@ -36,14 +31,12 @@ a{
     text-align: center;
     horiz-align: center;
 }
-.l{
+.toolbox{
     height: 100vh;
     position:absolute;
     background-color: #0D0D0D;
     font-size:40px;
     opacity: 0.5;
-
-
 }
 .shapes{
     border-top: 1px dashed lightslategray;
@@ -51,14 +44,16 @@ a{
 
 }
 .group .item{
-
     width: 40px;
     height: 50px;
     padding: 10px;
     color: #9FC3E6;
-
 }
 .item:hover{
+    background-color: lightslategray;
+    cursor: crosshair;
+}
+.item2:hover{
     background-color: lightslategray;
     cursor: crosshair;
 }
@@ -68,30 +63,40 @@ a{
     bottom: 0;
 }
 
-
-.r{
+.r {
     height: 70px;
-    position:absolute;
+    position: absolute;
     background-color: #0D0D0D;
-    font-size:40px;
+    font-size: 40px;
     opacity: 0.5;
     top: 0;
     left: 60px;
+    border-bottom-right-radius: 20px;
     /*
     width: 60px;
     height: 60px;
     top:0;
     left:60px;
 */
-
+}
+.w{
+    width: 30px;
+    height: 30px;
+   border-radius: 50%;
+}
+.item2{
+    border-top: 2px solid lightslategray;
+    border-top-style: hidden;
+    border-radius: 10%;
+    width: 35px;
+    height: 45px;
+    padding: 10px;
+    color: #9FC3E6;
 
 }
 .item{
     border-top: 2px solid lightslategray;
     border-top-style: hidden;
-
-
-
 }
 #canvas{
     position: absolute;
@@ -107,7 +112,5 @@ a{
     width: 60px;
     left:60px;
     top:0;
-    background-color: #0D0D0D;
-
-
+    background-color: transparent;
 }
