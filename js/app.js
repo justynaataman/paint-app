@@ -133,7 +133,12 @@ clear_all.addEventListener("click", q => {
 });
 
 
-download.addEventListener('click', function (e) {
-    var dataURL = canvas.toDataURL('image/png');
-    download.href = dataURL;
+download.addEventListener('click', e => {
+    let image = canvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
+    let link = document.createElement('a');
+    link.download = "drawing.png";
+    link.href = image;
+    link.click();
 });
+
+
