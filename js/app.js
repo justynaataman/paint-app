@@ -3,15 +3,18 @@ const context = canvas.getContext('2d');
 
 
 
-let draw = 0;
-let selected_color; 
+let drawing = 0;
+let selected_color = 'black'; 
+let brush_size = 4;
 let active_tool = 'Brush'; 
 clear_all = document.querySelector("[title = Clear]");
 download= document.querySelector("[title = Download]");
+Eraser = document.querySelector("[title = Eraser]");
+let er = 0;
 
-
-
-
+Eraser.addEventListener('click', function (e) {
+   er = 1; 
+});
 button = document.querySelector("[title = Pallete]")
 
 button.addEventListener("click", c => { 
@@ -58,6 +61,8 @@ document.querySelectorAll("[data-width]").forEach(
             item.addEventListener("click", e=> {
             document.querySelector("[data-width].clicked").classList.toggle("clicked"); //remove highlight if it is there
             item.classList.add("clicked");
+            brush_size = item.getAttribute("data-width");
+            console.log(brush_size);
            
         });
     }
@@ -81,33 +86,38 @@ document.querySelectorAll("[data-c]").forEach(
 canvas.addEventListener('mousedown', e => {
     x = e.offsetX;
     y = e.offsetY;
-    draw = 1;
+    drawing = 1;
     console.log(x); 
     console.log(y);
 
   });
 
 canvas.addEventListener('mousemove', e => {
-    if (draw === 1) {
-      drawLine(context, x, y, e.offsetX, e.offsetY);
+    if (drawing === 1) {
+      draw(context, x, y, e.offsetX, e.offsetY);
       x = e.offsetX;
       y = e.offsetY;
     }
   });
 
   window.addEventListener('mouseup', e => {
-    if (draw === 1) {
-      drawLine(context, x, y, e.offsetX, e.offsetY);
+    if (drawing === 1) {
+      draw(context, x, y, e.offsetX, e.offsetY);
       x = 0;
       y = 0;
-      draw = 0;
+      drawing = 0;
     }
   });
 
-function drawLine(context, x1, y1, x2, y2) {
+function draw(context, x1, y1, x2, y2) {
     context.beginPath();
-    context.strokeStyle = selected_color;
-    context.lineWidth = 5;
+    let color2 = selected_color;
+    if(active_tool === 'Eraser'){
+        color2 = 'white';
+    }
+    context.strokeStyle = color2;
+    console.log(selected_color);
+    context.lineWidth = brush_size;
     context.moveTo(x1, y1);
     context.lineTo(x2, y2);
     context.stroke();
@@ -123,13 +133,7 @@ clear_all.addEventListener("click", q => {
 });
 
 
-download.addEventListener("click", q => { 
-    
-    let img  = canvas.toDataURL("image/png", 1.0).replace("image/png", "imageoctet-stream");
-    var link = document.createElement("a"); 
-    link.download = "image.png"; 
-    link.href = image; 
-    link.click();
-    
-   
+download.addEventListener('click', function (e) {
+    var dataURL = canvas.toDataURL('image/png');
+    download.href = dataURL;
 });
