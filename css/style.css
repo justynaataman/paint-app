@@ -4,7 +4,6 @@ body{
     overflow: hidden;
 }
 .fa .far .fas {
-    horiz-align: center;
     position: relative;
     left: 50%;
     transform: translate(-50%);
@@ -14,6 +13,16 @@ body{
 
 a{
     outline: 0;
+}
+
+
+.clicked{
+    background-color: lightslategray;
+}
+button{
+    border:none; 
+    background-color: transparent;
+    outline: none;
 }
 
 .inner:hover{
@@ -29,7 +38,6 @@ a{
     left: 1000px;
     outline: 0;
     text-align: center;
-    horiz-align: center;
 }
 .toolbox{
     height: 100vh;
@@ -97,13 +105,14 @@ a{
 .item{
     border-top: 2px solid lightslategray;
     border-top-style: hidden;
+    
 }
 #canvas{
     position: absolute;
     top:50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: whitesmoke;
+    background-color: white;
 
 }
 

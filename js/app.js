@@ -1,7 +1,17 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');
+
+
+
 let draw = 0;
 let selected_color; 
+let active_tool = 'Brush'; 
+clear_all = document.querySelector("[title = Clear]");
+download= document.querySelector("[title = Download]");
+
+
+
+
 button = document.querySelector("[title = Pallete]")
 
 button.addEventListener("click", c => { 
@@ -22,7 +32,7 @@ brush.addEventListener("click", q => {
     
    
 });
-*/ 
+*/
 //TOOLS CLICKED
 document.querySelectorAll("[data-t = tool]").forEach(
     item => {
@@ -33,6 +43,8 @@ document.querySelectorAll("[data-t = tool]").forEach(
 
             let selected = item.getAttribute("title");
             console.log(selected)
+            active_tool =  item.getAttribute("title");
+    
         });
     }
 )
@@ -46,7 +58,7 @@ document.querySelectorAll("[data-width]").forEach(
             item.addEventListener("click", e=> {
             document.querySelector("[data-width].clicked").classList.toggle("clicked"); //remove highlight if it is there
             item.classList.add("clicked");
-            console.log(item.getAttribute("title"));
+           
         });
     }
 )
@@ -92,12 +104,32 @@ canvas.addEventListener('mousemove', e => {
     }
   });
 
-  function drawLine(context, x1, y1, x2, y2) {
+function drawLine(context, x1, y1, x2, y2) {
     context.beginPath();
     context.strokeStyle = selected_color;
-    context.lineWidth = 1;
+    context.lineWidth = 5;
     context.moveTo(x1, y1);
     context.lineTo(x2, y2);
     context.stroke();
     context.closePath();
   }
+
+clear_all.addEventListener("click", q => { 
+        console.log("hihih");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+   
+});
+
+
+download.addEventListener("click", q => { 
+    
+    let img  = canvas.toDataURL("image/png", 1.0).replace("image/png", "imageoctet-stream");
+    var link = document.createElement("a"); 
+    link.download = "image.png"; 
+    link.href = image; 
+    link.click();
+    
+   
+});
