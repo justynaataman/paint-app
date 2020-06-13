@@ -12,6 +12,10 @@ download= document.querySelector("[title = Download]");
 Eraser = document.querySelector("[title = Eraser]");
 let er = 0;
 
+
+
+
+
 Eraser.addEventListener('click', function (e) {
    er = 1; 
 });
@@ -132,13 +136,25 @@ clear_all.addEventListener("click", q => {
    
 });
 
-
+//for working image downloading
 download.addEventListener('click', e => {
+
+    //white rectangle for not transparent background
+    context.globalCompositeOperation = 'destination-over';
+
+    context.fillStyle = 'white';
+
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
     let image = canvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
     let link = document.createElement('a');
     link.download = "drawing.png";
     link.href = image;
     link.click();
+    //for drawing on existing thinks again bc destination over draws under them
+    context.globalCompositeOperation = 'source-over';
 });
+
+
 
 
