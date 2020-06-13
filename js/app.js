@@ -9,17 +9,26 @@ let brush_size = 4;
 let active_tool = 'Brush'; 
 clear_all = document.querySelector("[title = Clear]");
 download= document.querySelector("[title = Download]");
+fill= document.querySelector("[title = Fill]");
 undo= document.querySelector("[title = Undo]");
 Eraser = document.querySelector("[title = Eraser]");
 let er = 0;
+let do_fill = 0;
 let selected = 0;
 let element = null;    
-
+let cx = 0; 
+let cy = 0; 
 
 
 Eraser.addEventListener('click', function (e) {
    er = 1; 
 });
+
+fill.addEventListener('click', function (e) {
+    do_fill = 1; 
+
+ });
+
 button = document.querySelector("[title = Pallete]")
 
 button.addEventListener("click", c => { 
@@ -92,8 +101,6 @@ canvas.addEventListener('mousedown', e => {
     x = e.offsetX;
     y = e.offsetY;
     drawing = 1;
-    console.log(x); 
-    console.log(y);
 
   });
 
@@ -130,12 +137,53 @@ function draw(context, x1, y1, x2, y2) {
   }
 
 clear_all.addEventListener("click", q => { 
-        console.log("hihih");
+        console.log("clear");
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-
-   
 });
+
+/*
+p1|n|p2
+-- -- --
+w|cur|e
+-- -- --
+p3|s|p4
+*/
+function Pixel(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+canvas.addEventListener('mousedown', e => {
+      if(do_fill == 1){
+   
+        //
+        context.fillStyle = rgba;
+        context.fillRect( 1, 1, 1, 1 );
+//
+        var curr_pixel = new Pixel(x,y);
+        let p1 = 0; 
+        let p2 = 0; 
+        let p3 = 0; 
+        let p4 = 0; 
+        let w = 0; 
+        let n = 0; 
+        let e = 0;
+        let s = 0; 
+        let filled = 0; 
+        console.log("aaaaa");
+        console.log(curr_pixel.x);
+
+        let pixel = context.getImageData(x, y, 1, 1);
+        let data = pixel.data;
+        while(filled == 0){
+          
+
+        }
+
+      }
+  });
+
 
 //for working image downloading
 download.addEventListener('click', e => {
@@ -157,22 +205,26 @@ download.addEventListener('click', e => {
 });
 
 //pick color of current pixel - for fill func
-let color = document.getElementById('canvas');
-let rgba = [];
+
+let rgba = 0;
+let array_rgba = [];
 function pick(event) {
-    rgba = [];
+    array_rgba = [];
     let x = event.layerX;
     let y = event.layerY;
     let pixel = context.getImageData(x, y, 1, 1);
     let data = pixel.data;
-    rgba.push(data[0]);
-    rgba.push(data[1]);
-    rgba.push(data[2]);
-    rgba.push((data[3] / 255));
-   
-
+    let rgba = 'rgba(' + data[0] + ', ' + data[1] +
+               ', ' + data[2] + ', ' + (data[3] / 255) + ')';
+    array_rgba.push(data[0]); 
+    array_rgba.push(data[1]);
+    array_rgba.push(data[2]);
+    array_rgba.push((data[3] / 255));
     console.log(rgba);
+    console.log(array_rgba);
   }
+
   canvas.addEventListener('mousedown', pick);
+
 
 
