@@ -9,10 +9,11 @@ let brush_size = 4;
 let active_tool = 'Brush'; 
 clear_all = document.querySelector("[title = Clear]");
 download= document.querySelector("[title = Download]");
+undo= document.querySelector("[title = Undo]");
 Eraser = document.querySelector("[title = Eraser]");
 let er = 0;
-
-
+let selected = 0;
+let element = null;    
 
 
 
@@ -48,7 +49,7 @@ document.querySelectorAll("[data-t = tool]").forEach(
             item.classList.add("clicked");
             console.log(item.getAttribute("title"));
 
-            let selected = item.getAttribute("title");
+            selected = item.getAttribute("title");
             console.log(selected)
             active_tool =  item.getAttribute("title");
     
@@ -155,6 +156,23 @@ download.addEventListener('click', e => {
     context.globalCompositeOperation = 'source-over';
 });
 
+//pick color of current pixel - for fill func
+let color = document.getElementById('canvas');
+let rgba = [];
+function pick(event) {
+    rgba = [];
+    let x = event.layerX;
+    let y = event.layerY;
+    let pixel = context.getImageData(x, y, 1, 1);
+    let data = pixel.data;
+    rgba.push(data[0]);
+    rgba.push(data[1]);
+    rgba.push(data[2]);
+    rgba.push((data[3] / 255));
+   
 
+    console.log(rgba);
+  }
+  canvas.addEventListener('mousedown', pick);
 
 
