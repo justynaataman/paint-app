@@ -56,10 +56,10 @@ document.querySelectorAll("[data-t = tool]").forEach(
             item.addEventListener("click", e=> {
             document.querySelector("[data-t = tool].clicked").classList.toggle("clicked"); //remove highlight if it is there
             item.classList.add("clicked");
-            console.log(item.getAttribute("title"));
+          //  console.log(item.getAttribute("title"));
 
             selected = item.getAttribute("title");
-            console.log(selected)
+           // console.log(selected)
             active_tool =  item.getAttribute("title");
     
         });
@@ -97,10 +97,76 @@ document.querySelectorAll("[data-c]").forEach(
     }
 )
 
+
+/*
+p1|n|p2
+-- -- --
+w|cur|e
+-- -- --
+p3|s|p4
+*/
+function Pixel(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+
 canvas.addEventListener('mousedown', e => {
     x = e.offsetX;
     y = e.offsetY;
     drawing = 1;
+
+
+    if(do_fill == 1){
+        
+      context.fillStyle = rgba;
+      context.fillRect( 1, 1, 1, 1 );
+
+      var curr_pixel = new Pixel(x,y);
+      var next_pixel = new Pixel(x,y);
+      let p1 = 0; 
+      let p2 = 0; 
+      let p3 = 0; 
+      let p4 = 0; 
+      let w = 0; 
+      let n = 0; 
+      let e = 0;
+      let s = 0; 
+      let filled = 0; 
+      
+      context.fillStyle = rgba;
+      context.fillRect( x+1, y, 1, 1 );
+      let pixel_click = context.getImageData(curr_pixel.x, curr_pixel.y, 1, 1);
+      let data_click = pixel_click.data;
+      
+      while(filled == 0){
+        let next_pixel = context.getImageData(x+1, y, 1, 1);
+        let next_data = next_pixel.data;
+        console.log(next_data[0]); 
+          console.log(next_data[1]);
+        
+        if(next_data[0] != data_click[0] || next_data[1] != data_click[1] || next_data[2] != data_click[2] || (next_data[3] / 255) != (data_click[3] / 255)){
+          console.log("tutaj"); 
+          console.log(next_data[0]); 
+          console.log(next_data[1]);
+          context.fillStyle = rgba;
+          ee = x; 
+          context.fillRect( ee, y, 1, 1 );
+          ee +=1;
+
+          filled = 1;
+
+        }
+        else{
+          filled = 1;
+        }
+
+
+      }
+
+    }
+
+
 
   });
 
@@ -142,47 +208,7 @@ clear_all.addEventListener("click", q => {
 
 });
 
-/*
-p1|n|p2
--- -- --
-w|cur|e
--- -- --
-p3|s|p4
-*/
-function Pixel(x, y) {
-  this.x = x;
-  this.y = y;
-}
 
-canvas.addEventListener('mousedown', e => {
-      if(do_fill == 1){
-   
-        //
-        context.fillStyle = rgba;
-        context.fillRect( 1, 1, 1, 1 );
-//
-        var curr_pixel = new Pixel(x,y);
-        let p1 = 0; 
-        let p2 = 0; 
-        let p3 = 0; 
-        let p4 = 0; 
-        let w = 0; 
-        let n = 0; 
-        let e = 0;
-        let s = 0; 
-        let filled = 0; 
-        console.log("aaaaa");
-        console.log(curr_pixel.x);
-
-        let pixel = context.getImageData(x, y, 1, 1);
-        let data = pixel.data;
-        while(filled == 0){
-          
-
-        }
-
-      }
-  });
 
 
 //for working image downloading
@@ -220,8 +246,8 @@ function pick(event) {
     array_rgba.push(data[1]);
     array_rgba.push(data[2]);
     array_rgba.push((data[3] / 255));
-    console.log(rgba);
-    console.log(array_rgba);
+    //console.log(rgba);
+    //console.log(array_rgba);
   }
 
   canvas.addEventListener('mousedown', pick);
