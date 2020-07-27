@@ -59,7 +59,7 @@ document.querySelectorAll("[data-t = tool]").forEach(
           //  console.log(item.getAttribute("title"));
 
             selected = item.getAttribute("title");
-           // console.log(selected)
+           console.log(selected)
             active_tool =  item.getAttribute("title");
     
         });
@@ -175,6 +175,8 @@ canvas.addEventListener('mousemove', e => {
       draw(context, x, y, e.offsetX, e.offsetY);
       x = e.offsetX;
       y = e.offsetY;
+      console.log(x);
+      console.log(y);
     }
   });
 
@@ -251,6 +253,71 @@ function pick(event) {
   }
 
   canvas.addEventListener('mousedown', pick);
+
+//CIRCLE DRAWING (ughhhh)
+
+
+var circles = [];
+var startX;
+var startY;
+var isMouseDown = false;
+var circle, radius;
+
+canvas.addEventListener('mousedown', drawCircleMouseDown, false);
+canvas.addEventListener('mouseup', drawCircleMouseUp, false);
+canvas.addEventListener('mousemove', drawCircleMouseMove, false);
+
+function Circle(startX, startY) {
+  if(active_tool === 'Circle'){
+    
+  this.startX = startX;
+  this.startY = startY;
+  this.radius;
+  this.draw = function() {
+    context.beginPath();
+    context.arc(this.startX, this.startY, this.radius, 0, 2 * Math.PI);
+    context.strokeStyle = selected_color;
+    context.stroke();
+  }
+  }
+}
+
+function drawCircleMouseDown(e) {
+  if(active_tool === 'Circle'){
+  circle = [];
+  startX = parseInt(e.offsetX);
+  startY = parseInt(e.offsetY);
+  isMouseDown = true;
+  circle = new Circle(startX, startY);
+  circles.push(circle);
+  }
+}
+
+function drawCircleMouseUp() {
+  if(active_tool === 'Circle'){
+  isMouseDown = false;
+  circle = null;
+  }
+}
+
+function drawCircleMouseMove(e) {
+  if(active_tool === 'Circle'){
+  if (!isMouseDown) {
+    return;
+  }
+  
+  mouseX = parseInt(e.offsetX);
+  mouseY = parseInt(e.offsetY);
+  radius = Math.sqrt(Math.pow(startX - mouseX, 2) + Math.pow(startY- mouseY, 2));
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  context.beginPath();
+  context.arc(startX, startY, radius, 0, 2 * Math.PI);
+  context.strokeStyle = selected_color;
+  context.stroke();
+}
+}
 
 
 
