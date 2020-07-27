@@ -305,17 +305,15 @@ function drawCircleMouseMove(e) {
   if (!isMouseDown) {
     return;
   }
-  
   mouseX = parseInt(e.offsetX);
   mouseY = parseInt(e.offsetY);
-  radius = Math.sqrt(Math.pow(startX - mouseX, 2) + Math.pow(startY- mouseY, 2));
+  circle.radius = Math.sqrt(Math.pow(startX - mouseX, 2) + Math.pow(startY- mouseY, 2));
 
   context.clearRect(0, 0, canvas.width, canvas.height);
-
-  context.beginPath();
-  context.arc(startX, startY, radius, 0, 2 * Math.PI);
-  context.strokeStyle = selected_color;
-  context.stroke();
+  circles.forEach(function(circ) {
+    circ.draw();
+  }
+  );
 }
 }
 
